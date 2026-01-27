@@ -1,16 +1,16 @@
 # Insurance-Claim-Prediction-Model
-# 📌 **Insurance Claim Prediction — Machine Learning Project**
+#  **Insurance Claim Prediction — Machine Learning Project**
 
 This project focuses on predicting whether a building will file at least one insurance claim during its insured period based on its structural and contextual characteristics. The final model outputs claim probabilities that can assist insurers in risk identification and underwriting decisions.
 
 
-## 🧩 **Project Objective**
+##  **Project Objective**
 
 Predict the probability that a building will file at least one claim (Claim = 1) versus no claim (Claim = 0), and evaluate which model provides the best performance for claim detection in the presence of class imbalance.
 
 
 
-## 📂 **Dataset Overview**
+##  **Dataset Overview**
 
 * Total Records: 7,160 buildings
 * Target Variable: `Claim` (1 = claim occurred, 0 = no claim)
@@ -109,7 +109,7 @@ Performed tuning on XGBoost using RandomizedSearchCV to optimize ROC-AUC:
 
 
 
-## 🏁 **Results Summary**
+##  **Results Summary**
 
 * Best Model: **Tuned XGBoost**
 * Test Recall (Claim Class): ~0.86
@@ -118,7 +118,7 @@ Performed tuning on XGBoost using RandomizedSearchCV to optimize ROC-AUC:
 
 ---
 
-## 🎯 **Business Relevance**
+##  **Business Relevance**
 
 This model can support:
 
@@ -130,7 +130,7 @@ This model can support:
 False positives carry operational cost; false negatives carry financial exposure. The model prioritizes reducing false negatives, which aligns with insurance risk preferences.
 
 
-## 📘 **Project Achievement**
+##  **Project Achievement**
 
 * Completed end-to-end ML workflow
 * Improved performance through feature engineering & tuning
