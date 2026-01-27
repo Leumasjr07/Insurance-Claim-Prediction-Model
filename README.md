@@ -1,4 +1,3 @@
-# Insurance-Claim-Prediction-Model
 #  **Insurance Claim Prediction — Machine Learning Project**
 
 This project focuses on predicting whether a building will file at least one insurance claim during its insured period based on its structural and contextual characteristics. The final model outputs claim probabilities that can assist insurers in risk identification and underwriting decisions.
