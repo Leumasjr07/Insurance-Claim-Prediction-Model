@@ -123,7 +123,6 @@ This model can support:
 
 * Underwriting decisions
 * Premium adjustments
-* Risk segmentation
 * Monitoring high-risk buildings
 
 False positives carry operational cost; false negatives carry financial exposure. The model prioritizes reducing false negatives, which aligns with insurance risk preferences.
