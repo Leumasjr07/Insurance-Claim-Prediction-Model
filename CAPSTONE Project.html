@@ -14612,7 +14612,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -20404,28 +20404,13 @@ Test Recall : 0.8593272171253823
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Model-Development-Journey">Model Development Journey<a class="anchor-link" href="#Model-Development-Journey">&#182;</a></h2>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<ul>
-<li><p>Multiple models were trained and evaluated, including Logistic Regression, Random Forest, Gradient Boosting, SVM, KNN, and XGBoost.</p>
-</li>
-<li><p>Threshold tuning was performed due to class imbalance and business preference for minimizing false negatives.</p>
-</li>
-<li><p>Engineered features improved performance across nearly all models.</p>
-</li>
-<li><p>Hyperparameter tuning was performed on XGBoost using cross-validation to optimize ROC-AUC.</p>
-</li>
-<li><p>Evaluation focused on Recall (Claim Class), ROC-AUC, and F1 rather than Accuracy.</p>
-</li>
+<h2 id="Model-Development-Journey-&amp;-Perfomance">Model Development Journey &amp; Perfomance<a class="anchor-link" href="#Model-Development-Journey-&amp;-Perfomance">&#182;</a></h2><p>In this project, I tested different models to see which one would best predict if a building will have an insurance claim. Because the dataset has more <strong>no-claim (0)</strong> than <strong>claim (1)</strong> cases, I didn’t rely on accuracy alone. I focused more on <strong>Recall (for Claim = 1)</strong> and <strong>ROC-AUC</strong>, because missing real claim cases is more costly.</p>
+<h3 id="What-I-observed-from-the-results">What I observed from the results<a class="anchor-link" href="#What-I-observed-from-the-results">&#182;</a></h3><ul>
+<li><strong>KNN</strong> was the weakest model overall. It had <strong>lower ROC-AUC (~0.70)</strong> and its claim detection was not strong (<strong>Recall ~0.68</strong>).</li>
+<li><strong>Random Forest</strong> had a better overall accuracy (<strong>~0.71</strong>), but it missed many claim cases compared to other models (<strong>Recall ~0.58</strong>). That made it less suitable for an insurance setting where missing claims matters.</li>
+<li><strong>SVM</strong> and <strong>Gradient Boosting (GBM)</strong> were improvements. GBM had a strong balance and gave good performance (<strong>Recall ~0.75</strong>, <strong>ROC-AUC ~0.79</strong>). SVM was close but slightly lower (<strong>Recall ~0.73</strong>, <strong>ROC-AUC ~0.77</strong>).</li>
+<li><strong>Logistic Regression</strong> surprised me — after threshold tuning it detected many claim cases (<strong>Recall ~0.80</strong>), but its risk ranking was still lower than the best model (<strong>ROC-AUC ~0.77</strong>).</li>
+<li><strong>XGBoost (tuned)</strong> gave the best overall result for this task. It achieved the <strong>highest Recall for claims (~0.86)</strong> and also the <strong>best ROC-AUC (~0.80)</strong>, meaning it was strongest at both detecting claims and ranking buildings by risk.</li>
 </ul>
 
 </div>
@@ -20438,29 +20423,14 @@ Test Recall : 0.8593272171253823
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Final-Model-Choice-&amp;-Assessment">Final Model Choice &amp; Assessment<a class="anchor-link" href="#Final-Model-Choice-&amp;-Assessment">&#182;</a></h2>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h1 id="Final-Model-Choice-&amp;-Assessment">Final Model Choice &amp; Assessment<a class="anchor-link" href="#Final-Model-Choice-&amp;-Assessment">&#182;</a></h1><p>I selected <strong>tuned XGBoost</strong> because it gave the best trade-off based on the key metrics I cared about:</p>
 <ul>
-<li><p>Tuned XGBoost with threshold 0.35 provided the best balance for insurance context.</p>
-</li>
-<li><p>Achieved Recall ≈ 0.86 on claim class, with ROC-AUC ≈ 0.80 on test data.</p>
-</li>
-<li><p>High recall means fewer missed claims (reduced financial exposure).</p>
-</li>
-<li><p>AUC indicates strong risk ranking capability across buildings.</p>
-</li>
-<li><p>False positives are acceptable operationally; false negatives were reduced significantly.</p>
-</li>
+<li><strong>Recall improved to ~0.86</strong>, which was higher than the other models (meaning it missed fewer real claims).</li>
+<li><strong>ROC-AUC was ~0.80</strong>, also the highest among the models (meaning better risk ranking).</li>
+<li><strong>F1-score was around ~0.50</strong>, showing it still kept a reasonable balance between catching claims and avoiding too many wrong alerts.</li>
 </ul>
+<p>Even though some models had higher accuracy (like Random Forest), I didn’t pick them because they had lower recall and would miss more claim cases.</p>
+<p>Overall, my results showed that performance improved as I moved from simpler models to stronger ones. After comparing the metrics, <strong>tuned XGBoost performed best</strong> for this insurance claim prediction task because it detected the most claims and ranked risk more reliably than the other models.</p>
 
 </div>
 </div>
@@ -20472,21 +20442,12 @@ Test Recall : 0.8593272171253823
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Business-Interpretation">Business Interpretation<a class="anchor-link" href="#Business-Interpretation">&#182;</a></h2>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Business-Interpretation">Business Interpretation<a class="anchor-link" href="#Business-Interpretation">&#182;</a></h2><p>The final model was chosen because it is better at identifying buildings that are more likely to have insurance claims. This means it helps highlight risky cases rather than missing them.</p>
+<p>Even though the model may sometimes flag a building as risky when no claim eventually happens, this is acceptable in insurance. It is safer to investigate a few extra buildings than to miss buildings that later result in claims.</p>
+<p>By focusing on detecting claim cases instead of only maximizing accuracy, the model aligns with insurance priorities. It reduces the chances of unexpected losses while still providing reasonable overall performance.</p>
+<p>Overall, the selected model supports better decision-making by helping insurers pay attention to potential risks early, rather than reacting after claims occur.</p>
 <ul>
 <li><p>Model can identify and prioritize high-risk buildings for underwriting attention.</p>
-</li>
-<li><p>Risk probabilities can support premium adjustments, inspections, and monitoring.</p>
 </li>
 <li><p>Ranking ability enables resource allocation without rejecting low-risk customers.</p>
 </li>
